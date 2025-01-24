@@ -1,7 +1,9 @@
 ---
 id: jan 23
-aliases: []
-tags: []
+aliases:
+  - l1
+tags:
+  - lecture
 ---
 
 # jan 23
@@ -235,14 +237,3 @@ return final_states.contains(curr_state) && next != error
 - states may have multiple outgoing edges with the same label
 - edges may be labelled with special symbol (epsilon), which is an empty string
     - this means you can skip eating a char, it's always a valid option
-
-
-```
-
-
-
-
-
-
-
-
