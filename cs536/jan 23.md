@@ -151,6 +151,95 @@ Time created: 18:06
         - temp4 = temp1 + temp3
         - a = temp4
 
+## scanning
+Scanner translates sequence of chars into sequence of tokens
+- each time scanner is called it should -
+    - find longest sequence of chars corresponding to a token (e.g. identifiying abs instead of a, b, then s)
+    - return that token
+- scanner generator
+    - input -
+        - one regex for each token
+        - one regex for each item to ignore (comments, whitespace, etc.)
+    - output - scanner program
+    - in order to understand this, we need to understand FSMs
+
+## finite-state machines (FSMs)
+aka finite automata, finite-state automata.
+sort of like a computer that can recognize legal strings.
+- input - string (sequence of characters), finite in length
+- output - accept/reject, answers the question: is the string in language L?
+Compiler recognizes legal programs in source language s
+FSM recognizes legal strings in language L
+
+FSMs have -
+- nodes (aka states, labelled)
+- edges (aka transitions, labelled)
+- start state (arrow pointing into it), there can only be one
+- final states are double circles, can have multiple
+
+example 1 -
+- language I'd like to recognize is single-line comments starting with // (e.g. Java and C++)
+- // stuff to end of line
+- FSM would be
+    - -> s0 ->('/') s1 ->('/') s2
+        - ->(\n) s3(final)
+        - ->(not \n) s2
+
+```
+How FSMs work
+- keep track of current state (curr_state)
+- keep track of current character (in_ch)
+- repeat
+    - if curr_state has outgoing edge with label in_ch into next_state
+        - curr_state = next_state (aka following the edge)
+        - in_ch = next char of input
+    - else
+        - stuck (aka error condition)
+- until stuck or input string is consumed
+- if entire string is consumed and curr_state = final state
+    - accept string
+- else
+    - reject string
+```
+State transition tables
+- used by state transition function
+- rows of state
+- columns of each set in the alphabet
+- value in a cell is a state
+    - e.g. in the hexadecimal example, s0 at 0 contains s1 (to indicate that that is the state to go to)
+- reaching an empty cell means the string is rejected
+    - this means that empty cells store sE (aka error state)
+    - row in the table for sE contains only sE
+    - to handle empty spaces, create error state that has edges to itself repeatedly
+- coding this looks like
+```
+curr_state = start_state
+done = false
+while (!done)
+    ch = nextChar()
+    next = transition[curr_state][ch]
+    if (next == error || ch == EOF)
+        done = true
+    else
+        curr_state = next
+return final_states.contains(curr_state) && next != error
+```
+^ only works provided that the FSM is deterministic
+
+## deterministic (DFA) vs. non-deterministic (NFA) FSMs
+### deterministic
+- no state has > 1 outgoing edge with the same label
+- edges can only be labelled with elements of the alpabet
+
+### non-deterministic
+- states may have multiple outgoing edges with the same label
+- edges may be labelled with special symbol (epsilon), which is an empty string
+    - this means you can skip eating a char, it's always a valid option
+
+
+```
+
+
 
 
 
