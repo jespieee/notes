@@ -14,8 +14,8 @@ Time created: 17:52
 ## w2 learning objectives (at a minimum be able to)
 - [x] draw and label basic memory diagram showing name, value, type for given code
 - [x] draw and label linear memory diagram showing name, address, hex contents of variable
-- show binary representation and byte ordering for int, char, address, values
-- declare, assign, and dereference pointer variables
+- [x] show binary representation and byte ordering for int, char, address, values
+- [x] declare, assign, and dereference pointer variables
 - use stdlib.h functions malloc and free to manage dynamically allocated “heap” memory
 - code, describe, and diagram 1D arrays showing stack and on heap allocations
 - show byte representation of character arrays and C strings
@@ -80,5 +80,22 @@ But this is the right way to do it -
     - size is 4 bytes, pointers take up however many bytes the architecture deems necessary
 
 ## 1D arrays
-- What?
+- What? - compound unit of storage (not scalar) with elements of the same type
+- access via identifier and indexing
+- allocated as a contiguous fixed size block of memory
+
+### function with pointers
+- e.g. ```int a[5];``` (stack allocated array)
+
+#### address arithmetic
+- ```a[i]```
+    - ```a[i]``` is equivalent to ```*(a + i)```
+    - e.g. assigning ```a[3] = 33``` would be ```*(a + 3) = 33```
+
+#### pointers with arrays
+- a pointer having the address of array a would be ```int *p = a```
+- assigning ```a[4] = 44``` would be ```*(p + 4) = 44```
+
+
+
 
